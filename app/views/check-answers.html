@@ -1,0 +1,79 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check your answers before sending your application" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    <h1 class="govuk-heading-xl">Check your answers before sending your application</h1>
+
+    {{ govukSummaryList({
+      rows: [
+      {
+        key: { text: "Who is this application for?" },
+        value: { text: data["applicant-type"] if data["applicant-type"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/applicant-type",
+            text: "Change",
+            visuallyHiddenText: "who is this application for?"
+          }]
+        }
+      },
+      {
+        key: { text: "Do you have a permanent or long-term disability that affects your mobility?" },
+        value: { text: data["has-qualifying-disability"] if data["has-qualifying-disability"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/has-qualifying-disability",
+            text: "Change",
+            visuallyHiddenText: "do you have a permanent or long-term disability that affects your mobility?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is your full name?" },
+        value: { text: data["full-name"] if data["full-name"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/full-name",
+            text: "Change",
+            visuallyHiddenText: "what is your full name?"
+          }]
+        }
+      },
+      {
+        key: { text: "What is your home address?" },
+        value: { text: data["address"] if data["address"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/address",
+            text: "Change",
+            visuallyHiddenText: "what is your home address?"
+          }]
+        }
+      },
+      {
+        key: { text: "Tell us about your disability and how it affects your mobility" },
+        value: { text: data["disability-details"] if data["disability-details"] else "Not answered" },
+        actions: {
+          items: [{
+            href: "/disability-details",
+            text: "Change",
+            visuallyHiddenText: "tell us about your disability and how it affects your mobility"
+          }]
+        }
+      }
+      ]
+    }) }}
+
+    <form method="post" novalidate>
+      {{ govukButton({ text: "Confirm and send" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
