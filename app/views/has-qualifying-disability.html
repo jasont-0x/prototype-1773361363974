@@ -1,0 +1,41 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Do you have a permanent or long-term disability that affects your mobility?" %}
+
+{% block content %}
+<div class="govuk-grid-row">
+  <div class="govuk-grid-column-two-thirds">
+
+    {{ govukBackLink({ text: "Back", href: "javascript:history.back()" }) }}
+
+    {% if errors and errors["has-qualifying-disability"] %}
+    {{ govukErrorSummary({
+      titleText: "There is a problem",
+      errorList: [{ text: errors["has-qualifying-disability"], href: "#has-qualifying-disability" }]
+    }) }}
+    {% endif %}
+
+    <form method="post" novalidate>
+    {{ govukRadios({
+      name: "has-qualifying-disability",
+      fieldset: {
+        legend: {
+          text: "Do you have a permanent or long-term disability that affects your mobility?",
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: { text: "This includes conditions that make it difficult to walk or use public transport" },
+      errorMessage: errors["has-qualifying-disability"] if errors else null,
+      value: data["has-qualifying-disability"],
+      items: [
+        { value: "yes", text: "Yes" },
+        { value: "no", text: "No" }
+      ]
+    }) }}
+      {{ govukButton({ text: "Continue" }) }}
+    </form>
+
+  </div>
+</div>
+{% endblock %}
